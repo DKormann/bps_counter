@@ -53,12 +53,14 @@
         if (fresh_char == queue[queue.length-1]) return update();
         queue = [...queue, fresh_char];
       }
+
+      display.innerHTML = '<span style="color: grey; font-size: 1rem;"> press the keys: </span>';
       if (wrongcounter > 0){
-        display.innerHTML = `${queue[0]} * ${wrongcounter+1}`
+        display.innerHTML += `${queue[0]} * ${wrongcounter+1}`
         display.style.color = 'red';
       }else{
         display.style.color = 'white';
-        display.innerHTML = `${queue[0]}`;
+        display.innerHTML += `${queue[0]}`;
       }
       display.innerHTML += `<span style="color: grey;">${queue.slice(1).join('')}</span>`;
     }
@@ -71,6 +73,8 @@
           hist.push({time: new Date().getTime(), char: queue[0]});
           queue = queue.slice(1);
         }else wrongcounter -=1;
+      }else if (e.key === 'Backspace'){
+        wrongcounter = Math.abs(wrongcounter-1);
       }else{
         wrongcounter +=1;
       }
