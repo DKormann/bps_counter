@@ -39,6 +39,8 @@
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const bits_per_char = Math.log2(chars.length-1); // double char to backspace
 
+    let record = JSON.parse(localStorage.getItem('record')) || 0;
+
     let hist = [];
     let wrongcounter = 0;
     let queue = [];
@@ -62,7 +64,6 @@
     }
 
     update();
-    
 
     document.body.addEventListener('keydown',  function (e){
       if(e.key.toLocaleLowerCase() === queue[0].toLocaleLowerCase()){
@@ -81,7 +82,12 @@
       hist = hist.filter(h => h.time > now - 60* 1000);
       const chars_per_second = hist.length / 20;
       const bits_per_second = chars_per_second * bits_per_char;
+      if (bits_per_second > record){
+        localStorage.setItem('record', bits_per_second);
+        record = bits_per_second;
+      }
       stats_display.innerHTML = `average BPS last minute: ${bits_per_second.toFixed(2)}`;
+      stats_display.innerHTML += `<p>record BPS: ${record.toFixed(2)}`;
     }
 
     setInterval(() => {
