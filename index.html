@@ -36,7 +36,7 @@
     const display = document.getElementById('display');
     const stats_display = document.getElementById('stats');
 
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const chars = ' ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const bits_per_char = Math.log2(chars.length-1); // double char to backspace
 
     let record = JSON.parse(localStorage.getItem('record')) || 0;
